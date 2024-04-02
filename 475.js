@@ -29,3 +29,25 @@ var findRadius = function (houses, heaters) {
 };
 
 // iterate through houses to find the longest distance house from the heater
+
+var findRadius = function (houses, heaters) {
+    let radius = 0
+    houses.sort((a, b) => a - b)
+    heaters.sort((a, b) => a - b)
+    let i = 0
+    let j = 0
+
+    while (i < houses.length && j < heaters.length) {
+        const disFromCurrHeater = Math.abs(houses[i] - heaters[j])
+        const disFromNextHeater = j + 1 < heaters.length ? Math.abs(heaters[j + 1] - houses[i]) : Infinity
+
+        if (disFromCurrHeater < disFromNextHeater) {
+            radius = Math.max(radius, disFromCurrHeater)
+            i++
+        } else {
+            j++
+        }
+    }
+
+    return radius
+};
